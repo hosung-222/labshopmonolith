@@ -96,9 +96,13 @@
                 status: false,
                 timeout: 5000,
                 text: '',
+                userRole: ''
             },
         }),
 	async created() {
+            var me = this
+
+            me.userRole = me.$OAuth.tokenParsed.realm_access.roles;
         },
         methods: {
             decode(value) {

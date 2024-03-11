@@ -1,19 +1,17 @@
-server:
-  port: 8080
-
 spring:
-  application:
-    name: monolith
----
-
-spring:
-  profiles: default
+  config:
+    activate:
+      on-profile: default
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9090/realms/master/protocol/openid-connect/certs
   jpa:
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-        implicit_naming_strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
   cloud:
     stream:
       kafka:
@@ -46,9 +44,9 @@ logging:
     org.springframework.cloud: debug
 
 api:
-  url: 
-    inventory: localhost:8083 
-    
+  url:
+    inventory: localhost:8083
+
 
 server:
   port: 8082
@@ -56,13 +54,19 @@ server:
 ---
 
 spring:
-  profiles: docker
+  config:
+    activate:
+      on-profile: docker
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9090/realms/master/protocol/openid-connect/certs
   jpa:
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-        implicit_naming_strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
   cloud:
     stream:
       kafka:
@@ -86,7 +90,7 @@ spring:
           contentType: application/json
 
 api:
-  url: 
-    inventory: inventory:8080 
-    
+  url:
+    inventory:8080
+
 
